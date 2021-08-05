@@ -28,6 +28,11 @@ spec:
       image: alcide/skan:v0.9.0-debug
       command:
       - cat
+      tty: true
+    - name: gradle
+      image: gradle:6.0.1-jdk11
+      command:
+      - cat
       tty: true   
     - name: java-node
       image: timbru31/java-node:11-alpine-jre-14
@@ -71,7 +76,7 @@ spec:
       }// end stage
     stage('Sonarqube Scanner') {
       steps {
-        container('java-node'){
+        container('gradle'){
           script {
             withSonarQubeEnv('Sonarqube-bookinfo'){
 
