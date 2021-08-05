@@ -1,0 +1,69 @@
+// Define paramerter
+def scmVars
+// Uses Declarative syntax to run commands inside a container.
+
+pipeline {
+    agent {
+        // user kubernetes as dynamic slave jenkins
+        kubernetes {
+            yaml """
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+    - name: helm
+      image: lachlanevenson/k8s-helm:v3.6.0
+      command:
+      - cat
+      tty: true
+"""
+    } // End kubernetes 
+  } // End agent
+  
+parameters {
+  gitParameter name: 'TAG' ,
+                selectedValue: 'TOP' ,
+                sortMode: 'DESCENDING_SMART' ,
+                tagFilter: 'build-*' ,
+                type: 'PT_TAG'
+}
+
+//Start pipeline
+  stages {
+      // Clones the repository 
+    stage('Clone source code') {
+      steps {
+        container('jnlp'){
+          script {
+            scmVars = checkout([
+              $class: 'GitSCM' ,
+              branches: [[name: "refs/tags/${params.TAG}"]],
+              userRemoteConfigs: [[
+                credentialsId: 'bookinfo-git-deploy-key',
+                url: 'git@github.com:mercurial963/bookinfo-reviews.git'
+                ]]
+            ])
+                  }// end script
+              }// end container
+          }// end steps
+      }// end stage
+
+      // Deploy
+    stage('Deploy reviews with Helm Chart') {
+      steps {
+        container('helm'){
+          script {
+            // withKubeConfig([credentialsId: 'config']){ //add kubeconfig to secret file
+              sh "helm upgrade --install -f helm-values/values-bookinfo-prd-reviews.yaml --wait \
+              --set extraEnv.COMMIT_ID=${scmVars.GIT_COMMIT} \
+              --set reviews.tag=${params.TAG} \
+              --namespace prd bookinfo-prd-reviews helm/"
+              // }// withCredentials
+
+                  }// end script
+              }// end container
+          }// end steps
+      }// end stage    
+  }// end stages
+  }
+

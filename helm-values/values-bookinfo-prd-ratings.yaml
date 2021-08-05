@@ -1,0 +1,23 @@
+ratings:
+  namespace: prd
+  image: ghcr.io/mercurial963/bookinfo-ratings
+  tag: prd
+  replicas: 1
+  imagePullSecrets: ghcr-bookinfo-ratings
+  port: 8080
+  healthCheckPath: "/health"
+  mongodbPasswordExistingSecret: bookinfo-prd-ratings-mongodb-secret
+ingress:
+  # annotations:
+  #   kubernetes.io/ingress.class: nginx
+  #   nginx.ingress.kubernetes.io/rewrite-target: /$2
+  # host: bookinfo.prd.opsta.co.th
+  # path: "/student[X]/ratings(/|$)(.*)"
+  serviceType: LoadBalancer
+extraEnv:
+  SERVICE_VERSION: v2
+  MONGO_DB_URL: mongodb://bookinfo-prd-ratings-mongodb:27017/?authSource=ratings
+  MONGO_DB_NAME: ratings-prd
+  # MONGO_DB_URL: mongodb://bookinfo-prd-ratings-mongodb:27017/ratings-prd
+  MONGO_DB_USERNAME: ratings-prd
+  COMMIT_ID: CHANGEME
