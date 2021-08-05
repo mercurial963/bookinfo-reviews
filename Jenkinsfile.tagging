@@ -1,0 +1,85 @@
+// Define paramerter
+def scmVars
+// Uses Declarative syntax to run commands inside a container.
+
+pipeline {
+    agent {
+        // user kubernetes as dynamic slave jenkins
+        kubernetes {
+            yaml """
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+    - name: docker
+      image: docker:20.10.3-dind
+      command:
+      - dockerd
+      tty: true
+      securityContext:
+        privileged: true
+    - name: git
+      image: alpine/git:v2.30.0
+      command:
+      - cat
+      tty: true
+"""
+    } // End kubernetes 
+  } // End agent
+
+//Start pipeline
+  stages {
+      // Clones the repository 
+    stage('Clone source code') {
+      steps {
+        container('jnlp'){
+          script {
+            scmVars = git branch: 'master',
+                          credentialsId: 'bookinfo-git-deploy-key',
+                          url: 'git@github.com:mercurial963/bookinfo-reviews.git'
+                  }// end script
+              }// end container
+          }// end steps
+      }// end stage
+
+      // Build image Dockerfile and push 
+    stage('Tag Docker Image') {
+
+      steps {
+        container('docker'){
+          script {
+            docker.withRegistry('https://ghcr.io', 'registry-bookinfo'){ //registry-bookinfo is user with token
+                          // build and push
+              uatImage= docker.image("ghcr.io/mercurial963/bookinfo-reviews:uat")
+              uatImage.pull()
+              uatImage.push("build-${BUILD_NUMBER}")
+              }// end docker.withRegistry
+
+                  }// end script
+              }// end container
+          }// end steps
+      }// end stage
+
+      // Deploy
+    stage('Git tag') {
+      steps {
+        container('git'){
+          script {
+            sshagent(credentials: ['bookinfo-git-deploy-key']) {
+              sh """
+               #Git tag first
+               git tag build-${BUILD_NUMBER}
+               #Push tag back to Github
+               SSH_AUTH_SOCK=${SSH_AUTH_SOCK} \
+               GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" \
+               git push --tags
+              """
+              } // End sshagent
+
+                   }// end script
+              }// end container
+          }// end steps
+      }// end stage    
+  }// end stages
+  }
+

@@ -1,0 +1,7 @@
+apiVersion: v2
+description: Bookinfo Ratings Service Helm Chart
+name: bookinfo-ratings
+version: 1.0.0
+appVersion: 1.0.0
+sources:
+  - https://github.com/mercurial963/bookinfo-ratings
