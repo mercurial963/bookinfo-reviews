@@ -20,4 +20,4 @@ extraEnv:
   # MONGO_DB_NAME: reviews-dev
   # # MONGO_DB_URL: mongodb://bookinfo-dev-reviews-mongodb:27017/reviews-dev //Change major reviews
   # MONGO_DB_USERNAME: reviews-dev
-  # COMMIT_ID: CHANGEME
+  COMMIT_ID: CHANGEME

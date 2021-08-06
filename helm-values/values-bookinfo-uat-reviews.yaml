@@ -20,4 +20,4 @@ extraEnv:
   # MONGO_DB_NAME: reviews-uat
   # # MONGO_DB_URL: mongodb://bookinfo-uat-reviews-mongodb:27017/reviews-uat
   # MONGO_DB_USERNAME: reviews-uat
-  # COMMIT_ID: CHANGEME
+  COMMIT_ID: CHANGEME
