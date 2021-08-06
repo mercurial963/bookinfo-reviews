@@ -39,6 +39,7 @@ spec:
         {{- range $key, $value := .Values.extraEnv }}
         - name: {{ $key }}
           value: {{ $value | quote }} # Ex.'v2'
-        {{- end }} # End range $key, $value := .Values.extraEnv      
+        {{- end }} # End range $key, $value := .Values.extraEnv
+        {{- end }} # End if .Values.extraEnv       
       imagePullSecrets:
       - name: {{ .Values.reviews.imagePullSecrets }}
