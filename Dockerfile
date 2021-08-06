@@ -16,7 +16,7 @@ COPY config/server.xml /opt/ibm/wlp/usr/servers/defaultServer/
 
 RUN /opt/ibm/wlp/bin/installUtility install  --acceptLicense /opt/ibm/wlp/usr/servers/defaultServer/server.xml
 USER root 
-RUN apt update && apt install -y curl 
+RUN apt update && apt install -y curl && apt install -y net-tools
 
 EXPOSE 9080
 CMD ["/opt/ibm/wlp/bin/server", "run", "defaultServer"]
