@@ -28,6 +28,11 @@ spec:
       image: alcide/skan:v0.9.0-debug
       command:
       - cat
+      tty: true
+    - name: gradle
+      image: gradle:6.0.1-jdk11
+      command:
+      - cat
       tty: true   
     - name: java-node
       image: timbru31/java-node:11-alpine-jre-14
@@ -79,7 +84,8 @@ spec:
               -D sonar.projectKey=${PROJECT_KEY} \
               -D sonar.projectName=${PROJECT_NAME} \
               -D sonar.projectVersion=${BRANCH_NAME}-${BUILD_NUMBER} \
-              -D sonar.source=./src'''
+              -D sonar.source=./src/main/java,./src/main/webapp \
+              -D sonar.java.binaries=**/*'''
             } // end withSonarQubeEnv
 
             timeout(time: 1, unit: 'MINUTES') {//Just in case something goes wrong,

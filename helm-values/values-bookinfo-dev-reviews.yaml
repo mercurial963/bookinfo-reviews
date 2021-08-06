@@ -1,0 +1,23 @@
+reviews:
+  namespace: dev
+  image: ghcr.io/mercurial963/bookinfo-reviews
+  tag: dev
+  replicas: 1
+  imagePullSecrets: ghcr-bookinfo-ratings
+  port: 8080
+  healthCheckPath: "/health"
+  # mongodbPasswordExistingSecret: bookinfo-dev-reviews-mongodb-secret
+ingress:
+  # annotations:
+  #   kubernetes.io/ingress.class: nginx
+  #   nginx.ingress.kubernetes.io/rewrite-target: /$2
+  # host: bookinfo.dev.opsta.co.th
+  # path: "/student[X]/reviews(/|$)(.*)"
+  serviceType: ClusterIP
+extraEnv:
+  # SERVICE_VERSION: v2
+  # MONGO_DB_URL: mongodb://bookinfo-dev-reviews-mongodb:27017/?authSource=reviews
+  # MONGO_DB_NAME: reviews-dev
+  # # MONGO_DB_URL: mongodb://bookinfo-dev-reviews-mongodb:27017/reviews-dev //Change major reviews
+  # MONGO_DB_USERNAME: reviews-dev
+  COMMIT_ID: CHANGEME
