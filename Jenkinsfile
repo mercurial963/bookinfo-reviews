@@ -76,7 +76,7 @@ spec:
       }// end stage
     stage('Sonarqube Scanner') {
       steps {
-        container('gradle'){
+        container('java-node'){
           script {
             withSonarQubeEnv('Sonarqube-bookinfo'){
 
@@ -84,7 +84,7 @@ spec:
               -D sonar.projectKey=${PROJECT_KEY} \
               -D sonar.projectName=${PROJECT_NAME} \
               -D sonar.projectVersion=${BRANCH_NAME}-${BUILD_NUMBER} \
-              -D sonar.source=./src/main/java/application'''
+              -D sonar.source=./src/main/java,./src/main/webapp'''
             } // end withSonarQubeEnv
 
             timeout(time: 1, unit: 'MINUTES') {//Just in case something goes wrong,
