@@ -1,23 +1,23 @@
-ratings:
+reviews:
   namespace: uat
-  image: ghcr.io/mercurial963/bookinfo-ratings
+  image: ghcr.io/mercurial963/bookinfo-reviews
   tag: uat
   replicas: 1
   imagePullSecrets: ghcr-bookinfo-ratings
   port: 8080
   healthCheckPath: "/health"
-  mongodbPasswordExistingSecret: bookinfo-uat-ratings-mongodb-secret
+  # mongodbPasswordExistingSecret: bookinfo-uat-reviews-mongodb-secret
 ingress:
   # annotations:
   #   kubernetes.io/ingress.class: nginx
   #   nginx.ingress.kubernetes.io/rewrite-target: /$2
   # host: bookinfo.uat.opsta.co.th
-  # path: "/student[X]/ratings(/|$)(.*)"
+  # path: "/student[X]/reviews(/|$)(.*)"
   serviceType: ClusterIP
 extraEnv:
   SERVICE_VERSION: v2
-  MONGO_DB_URL: mongodb://bookinfo-uat-ratings-mongodb:27017/?authSource=ratings
-  MONGO_DB_NAME: ratings-uat
-  # MONGO_DB_URL: mongodb://bookinfo-uat-ratings-mongodb:27017/ratings-uat
-  MONGO_DB_USERNAME: ratings-uat
-  COMMIT_ID: CHANGEME
+  # MONGO_DB_URL: mongodb://bookinfo-uat-reviews-mongodb:27017/?authSource=reviews
+  # MONGO_DB_NAME: reviews-uat
+  # # MONGO_DB_URL: mongodb://bookinfo-uat-reviews-mongodb:27017/reviews-uat
+  # MONGO_DB_USERNAME: reviews-uat
+  # COMMIT_ID: CHANGEME
