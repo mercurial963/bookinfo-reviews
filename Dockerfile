@@ -1,9 +1,7 @@
 # MULTISTAGE Build
 FROM gradle:6.0.1-jdk11 AS builder
 WORKDIR /opt/java/
-COPY ./src/ /opt/java/
-COPY ./config/ /opt/java/
-COPY ./build.gradle/ /opt/java/
+COPY . /opt/java/
 RUN gradle clean build
 
 # MULTISTAGE Run
