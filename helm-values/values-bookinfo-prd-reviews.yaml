@@ -6,7 +6,6 @@ reviews:
   imagePullSecrets: ghcr-bookinfo-ratings
   port: 8080
   healthCheckPath: "/health"
-  # mongodbPasswordExistingSecret: bookinfo-prd-reviews-mongodb-secret
 ingress:
   # annotations:
   #   kubernetes.io/ingress.class: nginx
@@ -16,8 +15,4 @@ ingress:
   serviceType: LoadBalancer
 extraEnv:
   SERVICE_VERSION: v2
-  # MONGO_DB_URL: mongodb://bookinfo-prd-reviews-mongodb:27017/?authSource=reviews
-  # MONGO_DB_NAME: reviews-prd
-  # # MONGO_DB_URL: mongodb://bookinfo-prd-reviews-mongodb:27017/reviews-prd
-  # MONGO_DB_USERNAME: reviews-prd
   COMMIT_ID: CHANGEME

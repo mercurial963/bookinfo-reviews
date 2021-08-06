@@ -35,7 +35,7 @@ spec:
         container('jnlp'){
           script {
             scmVars = git branch: 'master',
-                          credentialsId: 'bookinfo-git-deploy-key',
+                          credentialsId: 'bookinfo-reviews-git-deploy-key',
                           url: 'git@github.com:mercurial963/bookinfo-reviews.git'
                   }// end script
               }// end container
