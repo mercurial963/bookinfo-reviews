@@ -40,13 +40,6 @@ spec:
         - name: {{ $key }}
           value: {{ $value | quote }} # Ex.'v2'
         {{- end }} # End range $key, $value := .Values.extraEnv
-        {{- if .Values.reviews.mongodbPasswordExistingSecret }}
-        - name: MONGO_DB_PASSWORD 
-          valueFrom: 
-            secretKeyRef:
-              name: {{ .Values.reviews.mongodbPasswordExistingSecret }}
-              key: mongodb-password
-        {{- end }} # End if .Values.reviews.mongodbPasswordExistingSecret
-        {{- end }} # End if .Values.extraEnv          
+        {{- end }} # End if .Values.extraEnv       
       imagePullSecrets:
       - name: {{ .Values.reviews.imagePullSecrets }}
