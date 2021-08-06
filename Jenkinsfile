@@ -84,7 +84,7 @@ spec:
               -D sonar.projectKey=${PROJECT_KEY} \
               -D sonar.projectName=${PROJECT_NAME} \
               -D sonar.projectVersion=${BRANCH_NAME}-${BUILD_NUMBER} \
-              -D sonar.source=./src'''
+              -D sonar.source=./src/main/java/application'''
             } // end withSonarQubeEnv
 
             timeout(time: 1, unit: 'MINUTES') {//Just in case something goes wrong,
