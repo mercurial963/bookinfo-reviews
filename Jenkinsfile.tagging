@@ -65,7 +65,7 @@ spec:
       steps {
         container('git'){
           script {
-            sshagent(credentials: ['bookinfo-git-deploy-key']) {
+            sshagent(credentials: ['bookinfo-reviews-git-deploy-key']) {
               sh """
                #Git tag first
                git tag build-${BUILD_NUMBER}
