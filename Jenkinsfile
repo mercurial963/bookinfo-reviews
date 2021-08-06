@@ -85,7 +85,7 @@ spec:
               -D sonar.projectName=${PROJECT_NAME} \
               -D sonar.projectVersion=${BRANCH_NAME}-${BUILD_NUMBER} \
               -D sonar.source=./src/main/java,./src/main/webapp \
-              -D sonar.java.binaries=build/classes'''
+              -D sonar.java.binaries=**/*'''
             } // end withSonarQubeEnv
 
             timeout(time: 1, unit: 'MINUTES') {//Just in case something goes wrong,
