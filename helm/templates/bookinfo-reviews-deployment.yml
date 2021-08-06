@@ -24,18 +24,6 @@ spec:
         - containerPort: {{ .Values.reviews.port }}
           name: web-port
           protocol: TCP
-        livenessProbe:
-          initialDelaySeconds: 200
-          httpGet:
-            path: {{ .Values.reviews.healthCheckPath }}
-            port: {{ .Values.reviews.port }}
-            scheme: HTTP
-        readinessProbe:
-          initialDelaySeconds: 200
-          httpGet:
-            path: {{ .Values.reviews.healthCheckPath }}
-            port: {{ .Values.reviews.port }}
-            scheme: HTTP        
         {{- if .Values.extraEnv }} 
         env:
         {{- range $key, $value := .Values.extraEnv }}
