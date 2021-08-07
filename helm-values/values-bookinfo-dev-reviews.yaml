@@ -15,3 +15,5 @@ ingress:
   serviceType: ClusterIP
 extraEnv:
   COMMIT_ID: CHANGEME
+  RATINGS_SERVICE: http://bookinfo-dev-ratings:8080
+  ENABLE_RATINGS: true

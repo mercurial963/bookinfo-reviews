@@ -14,5 +14,7 @@ ingress:
   # path: "/student[X]/reviews(/|$)(.*)"
   serviceType: ClusterIP
 extraEnv:
-  SERVICE_VERSION: v2
+  # SERVICE_VERSION: v2
   COMMIT_ID: CHANGEME
+  RATINGS_SERVICE: http://bookinfo-uat-ratings:8080
+  ENABLE_RATINGS: true
