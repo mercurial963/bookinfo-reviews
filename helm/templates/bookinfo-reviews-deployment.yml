@@ -24,16 +24,6 @@ spec:
         - containerPort: {{ .Values.reviews.port }}
           name: web-port
           protocol: TCP
-        # livenessProbe:
-        #   httpGet:
-        #     path: {{ .Values.reviews.healthCheckPath }}
-        #     port: {{ .Values.reviews.port }}
-        #     scheme: HTTP
-        # readinessProbe:
-        #   httpGet:
-        #     path: {{ .Values.reviews.healthCheckPath }}
-        #     port: {{ .Values.reviews.port }}
-        #     scheme: HTTP        
         {{- if .Values.extraEnv }} 
         env:
         {{- range $key, $value := .Values.extraEnv }}
