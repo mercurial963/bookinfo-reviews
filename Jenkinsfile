@@ -129,7 +129,7 @@ spec:
         container('java-node'){
           script {
              // Install application dependency
-            sh ''' cd /src/main/java/application/ && mvn clean install && cd ../../../../'''
+            // sh ''' cd /src/main/java/application/ && mvn clean install && cd ../../../../'''
 
             // Start OPASP Dependency Check
             dependencyCheck(
@@ -143,7 +143,7 @@ spec:
             )
 
              // Remove application dependency
-            sh '''rm -rf src/'''
+            // sh '''rm -rf src/'''
 
 
                   }// end script
