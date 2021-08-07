@@ -129,7 +129,7 @@ spec:
         container('java-node'){
           script {
              // Install application dependency
-            // sh ''' cd /opt/ibm/ && ruby install --package-lock && cd ../'''
+            sh ''' cd /src && mvn clean install && cd ../'''
 
             // Start OPASP Dependency Check
             dependencyCheck(
@@ -143,7 +143,7 @@ spec:
             )
 
              // Remove application dependency
-            // sh '''rm -rf src/node_modules src/package-lock.json'''
+            sh '''rm -rf src/'''
 
 
                   }// end script
