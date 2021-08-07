@@ -129,7 +129,7 @@ spec:
         container('java-node'){
           script {
              // Install application dependency
-            sh ''' cd /opt/ibm/wlp/usr/servers/ && mvn clean install && cd ../'''
+            sh ''' cd /src/main/java/application/ && mvn clean install && cd ../../../../'''
 
             // Start OPASP Dependency Check
             dependencyCheck(
