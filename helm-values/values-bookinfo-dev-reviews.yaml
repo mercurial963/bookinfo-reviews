@@ -4,7 +4,7 @@ reviews:
   tag: dev
   replicas: 1
   imagePullSecrets: ghcr-bookinfo-ratings
-  port: 8080
+  port: 9080
   healthCheckPath: "/health"
 ingress:
   # annotations:
